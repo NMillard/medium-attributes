@@ -9,37 +9,37 @@ namespace Medium.Attributes.Main {
             double debitAmount,
             double creditAmount
         ) {
+            Id = Guid.NewGuid();
             Account = account;
             TransactionDate = transactionDate;
             ValueDate = valueDate;
             DebitAmount = debitAmount;
             CreditAmount = creditAmount;
-            Id = Guid.NewGuid();
         }
 
         public Guid Id { get; }
         
-        [CsvStorage("account", 4)]
+        [CsvInfo("account", 0)]
         public string Account { get; }
         
-        [CsvStorage("transaction_date", 4)]
+        [CsvInfo("transaction_date", 1)]
         public DateTime TransactionDate { get; }
         
-        [CsvStorage("value_date", 4)]
+        [CsvInfo("value_date", 2)]
         public DateTime ValueDate { get; }
         
-        [CsvStorage("debit", 4)]
+        [CsvInfo("debit", 3)]
         public double DebitAmount { get; }
         
-        [CsvStorage("credit", 4)]
+        [CsvInfo("credit", 4)]
         public double CreditAmount { get; }
     }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public class CsvStorageAttribute : Attribute {
+    public class CsvInfoAttribute : Attribute {
         private readonly ValueTransformationOption transformationOption;
 
-        public CsvStorageAttribute(
+        public CsvInfoAttribute(
             string columnName,
             int columnIndex,
             ValueTransformationOption transformationOption = ValueTransformationOption.NoTransformation
